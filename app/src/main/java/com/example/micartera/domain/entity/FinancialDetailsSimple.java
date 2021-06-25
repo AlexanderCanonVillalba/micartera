@@ -1,5 +1,7 @@
 package com.example.micartera.domain.entity;
 
+import com.example.micartera.domain.service.DateService;
+
 public class FinancialDetailsSimple extends FinancialDetails{
     private float totalIncome ;
     private float totalExpense;
@@ -12,4 +14,17 @@ public class FinancialDetailsSimple extends FinancialDetails{
         this.month = month;
         this.year = year;
     }
+
+    public float GetTotalIncome() {
+        return  this.totalIncome;
+    }
+
+    public float GetTotalExpense() {
+        return  this.totalExpense;
+    }
+
+    public String GetMonth(){
+        return new DateService().GetMonth(this.month);
+    }
+
 }

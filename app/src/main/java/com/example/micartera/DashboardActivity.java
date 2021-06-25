@@ -2,6 +2,7 @@ package com.example.micartera;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -47,6 +48,26 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         binding = ActivityDashboardBinding.inflate(getLayoutInflater());
+        TextView totalAhorros =  new TextView(this);
+        totalAhorros.setText("$9000");
+        totalAhorros.setTextColor(Color.WHITE);
+        totalAhorros.setX(300);
+        totalAhorros.setY(0);
+        totalAhorros.setTextSize(20);
+
+        TextView typeMoney =  new TextView(this);
+        typeMoney.setText("COP");
+        typeMoney.setTextColor(Color.WHITE);
+        typeMoney.setX(230);
+        typeMoney.setY(50);
+
+
+        binding.appBarDashboard.toolbar.addView(totalAhorros);
+        binding.appBarDashboard.toolbar.addView(typeMoney);
+
+        binding.appBarDashboard.toolbar.setTitle("HOLA");
+
+
         setContentView(binding.getRoot());
 
 

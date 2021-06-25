@@ -8,9 +8,9 @@ public class DateService {
     int mesInt = calendario.get(Calendar.MONTH);
 
 
-    public String GetMonth() {
+    public String GetMonth(int month) {
       String mes = "" ;
-      switch (mesInt){
+      switch (month){
           case 0:
             mes =  "ENERO"  ;
           case 1 :
