@@ -65,7 +65,6 @@ public class DashboardActivity extends AppCompatActivity {
         binding.appBarDashboard.toolbar.addView(totalAhorros);
         binding.appBarDashboard.toolbar.addView(typeMoney);
 
-        binding.appBarDashboard.toolbar.setTitle("HOLA");
 
 
         setContentView(binding.getRoot());

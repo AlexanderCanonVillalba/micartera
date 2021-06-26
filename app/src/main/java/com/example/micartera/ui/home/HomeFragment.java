@@ -1,5 +1,6 @@
 package com.example.micartera.ui.home;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -20,9 +21,13 @@ import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.micartera.DashboardActivity;
+import com.example.micartera.MainActivity2;
 import com.example.micartera.R;
 import com.example.micartera.core.ReadingTotals;
 import com.example.micartera.databinding.FragmentHomeBinding;
@@ -71,8 +76,7 @@ public class HomeFragment extends Fragment {
             int imageResource = getResources().getIdentifier(uri, null, getActivity().getPackageName());
             Drawable imagen = ContextCompat.getDrawable(this.getContext(), imageResource);
             view.setBackground(imagen);
-
-
+            view.setOnClickListener(this::Cambiar);
 
 
             Typeface boldTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
@@ -113,6 +117,13 @@ public class HomeFragment extends Fragment {
             }
         });*/
         return root;
+    }
+
+
+    public void Cambiar(View view) {
+        Intent dashboard =  new Intent(this.getContext(), MainActivity2.class);
+        startActivity(dashboard);
+
     }
 
     @Override
