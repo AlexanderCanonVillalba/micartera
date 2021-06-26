@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.micartera.DashboardActivity;
+import com.example.micartera.MainActivity3;
 import com.example.micartera.R;
 import com.example.micartera.databinding.DetailsFragmentBinding;
 import com.example.micartera.databinding.FragmentHomeBinding;
@@ -47,15 +48,19 @@ public class DetailsFragment extends Fragment {
         ArrayAdapter<FinancialAdjustment> mLeadsAdapter;
         List<FinancialAdjustment> list = new RepositoryMemory().GetDetails(new GetFinancialAdjustment(1, 2,3));
         mLeadsAdapter = new ListViewAdapter(getActivity(), list);
-       System.out.println("validando...." + list.size());
         binding.listMovimientos.setAdapter(mLeadsAdapter);
-
+        binding.add.setOnClickListener(this::add);
         return binding.getRoot();
 
     }
 
     public void previus(View view){
         Intent dashboard =  new Intent(this.getContext(), DashboardActivity.class);
+        startActivity(dashboard);
+    }
+
+    public void add(View view){
+        Intent dashboard =  new Intent(this.getContext(), MainActivity3.class);
         startActivity(dashboard);
     }
 

@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.micartera.R;
 import com.example.micartera.domain.entity.FinancialAdjustment;
-import com.example.micartera.domain.entity.FinancialDetails;
 
 import java.util.List;
 
@@ -56,15 +55,5 @@ public class ListViewAdapter  extends ArrayAdapter<FinancialAdjustment> {
         value.setText(String.valueOf(lead.getValue()));
 
         return convertView;
-    }
-
-
-    public int GetAvatar(String category){
-        int idCategory = 0;
-        switch (category){
-            case "Mercado":
-                idCategory =  R.drawable.home;
-        }
-      return idCategory;
     }
 }
