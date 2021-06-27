@@ -2,6 +2,7 @@ package com.example.micartera.ui.category;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,10 +13,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.micartera.DashboardActivity;
+import com.example.micartera.MainActivity4;
 import com.example.micartera.R;
+import com.example.micartera.databinding.CategoryFragmentBinding;
+import com.example.micartera.databinding.DetailsFragmentBinding;
 
 public class CategoryFragment extends Fragment {
 
+    private CategoryFragmentBinding binding;
     private CategoryViewModel mViewModel;
 
     public static CategoryFragment newInstance() {
@@ -26,8 +32,15 @@ public class CategoryFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.category_fragment, container, false);
+        binding = CategoryFragmentBinding.inflate(inflater, container, false);
+        binding.btnMercado.setOnClickListener(this::Registrar);
+        return binding.getRoot();
     }
+
+   public void Registrar(View view){
+       Intent dashboard =  new Intent(this.getContext(), MainActivity4.class);
+       startActivity(dashboard);
+   }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

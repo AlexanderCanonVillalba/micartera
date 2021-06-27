@@ -14,13 +14,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
+
 
 import com.example.micartera.DashboardActivity;
 import com.example.micartera.MainActivity3;
-import com.example.micartera.R;
+
 import com.example.micartera.databinding.DetailsFragmentBinding;
-import com.example.micartera.databinding.FragmentHomeBinding;
 import com.example.micartera.domain.entity.FinancialAdjustment;
 import com.example.micartera.domain.query.GetFinancialAdjustment;
 import com.example.micartera.infrastructure.repository.RepositoryMemory;
@@ -49,7 +48,7 @@ public class DetailsFragment extends Fragment {
         List<FinancialAdjustment> list = new RepositoryMemory().GetDetails(new GetFinancialAdjustment(1, 2,3));
         mLeadsAdapter = new ListViewAdapter(getActivity(), list);
         binding.listMovimientos.setAdapter(mLeadsAdapter);
-        binding.add.setOnClickListener(this::add);
+       binding.add2.setOnClickListener(this::add);
         return binding.getRoot();
 
     }
