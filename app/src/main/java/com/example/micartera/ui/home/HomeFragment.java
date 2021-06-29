@@ -28,6 +28,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.micartera.DashboardActivity;
 import com.example.micartera.MainActivity2;
+import com.example.micartera.MainActivity3;
 import com.example.micartera.R;
 import com.example.micartera.core.ReadingTotals;
 import com.example.micartera.databinding.FragmentHomeBinding;
@@ -35,6 +36,7 @@ import com.example.micartera.domain.entity.FinancialDetailsSimple;
 import com.example.micartera.domain.port.Repository;
 import com.example.micartera.domain.query.GetFinancialAdjustment;
 import com.example.micartera.infrastructure.repository.RepositoryMemory;
+import com.example.micartera.infrastructure.repository.realm.RealmRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,16 +49,20 @@ public class HomeFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
+        Bundle datosRecuperados =  getArguments();
+
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding.add.setOnClickListener(this::add);
         View root = binding.getRoot();
 
 
-        Repository repository  = new RepositoryMemory();
+        Repository repository  = new RealmRepository();
         ReadingTotals useCase = new ReadingTotals(repository) ;
-        GetFinancialAdjustment query =  new GetFinancialAdjustment(1 , 1234 , 0);
+        GetFinancialAdjustment query =  new GetFinancialAdjustment(45 , 1234 , 0);
         List<FinancialDetailsSimple> listFinancialDetailsSimple = useCase.Execute(query);
 
 
@@ -78,7 +84,7 @@ public class HomeFragment extends Fragment {
             view.setBackground(imagen);
             view.setOnClickListener(this::Cambiar);
 
-
+            System.out.println("validando mes view...." + financialDetailsSimple.GetMonth() );
             Typeface boldTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
             final TextView textView  =  new TextView(this.getContext());
             textView.setText(financialDetailsSimple.GetMonth());
@@ -88,14 +94,14 @@ public class HomeFragment extends Fragment {
 
 
             final TextView totalExpense  =  new TextView(this.getContext());
-            totalExpense.setText("TOTAL INGRESOS : " + String.valueOf(financialDetailsSimple.GetTotalExpense()));
+            totalExpense.setText("TOTAL GASTOS : " + String.valueOf(financialDetailsSimple.GetTotalExpense()));
             totalExpense.setX(250);
             totalExpense.setY(90);
             totalExpense.setTypeface(boldTypeface);
 
 
             final TextView totalIncome  =  new TextView(this.getContext());
-            totalIncome.setText("TOTAL INGRESOS : "+ String.valueOf(financialDetailsSimple.GetTotalIncome()) );
+            totalIncome.setText("TOTAL INGRESO : "+ String.valueOf(financialDetailsSimple.GetTotalIncome()) );
             totalIncome.setX(250);
             totalIncome.setY(120);
             totalIncome.setTypeface(boldTypeface);
@@ -124,6 +130,12 @@ public class HomeFragment extends Fragment {
         Intent dashboard =  new Intent(this.getContext(), MainActivity2.class);
         startActivity(dashboard);
 
+    }
+
+
+    public void add(View view){
+        Intent dashboard =  new Intent(this.getContext(), MainActivity3.class);
+        startActivity(dashboard);
     }
 
     @Override

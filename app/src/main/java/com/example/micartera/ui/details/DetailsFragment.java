@@ -19,12 +19,16 @@ import android.widget.ArrayAdapter;
 import com.example.micartera.DashboardActivity;
 import com.example.micartera.MainActivity3;
 
+import com.example.micartera.core.ReadingDetails;
 import com.example.micartera.databinding.DetailsFragmentBinding;
 import com.example.micartera.domain.entity.FinancialAdjustment;
+import com.example.micartera.domain.port.Repository;
 import com.example.micartera.domain.query.GetFinancialAdjustment;
 import com.example.micartera.infrastructure.repository.RepositoryMemory;
+import com.example.micartera.infrastructure.repository.realm.RealmRepository;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class DetailsFragment extends Fragment {
@@ -44,8 +48,14 @@ public class DetailsFragment extends Fragment {
 
         binding = DetailsFragmentBinding.inflate(inflater, container, false);
         binding.previus.setOnClickListener(this::previus);
+
+        Repository repository = new RealmRepository();
+        ReadingDetails  useCase = new ReadingDetails(repository);
+        GetFinancialAdjustment query =  new GetFinancialAdjustment(45 , 1234 , Calendar.JUNE);
+        List<FinancialAdjustment> list =  useCase.Execute(query);
+
         ArrayAdapter<FinancialAdjustment> mLeadsAdapter;
-        List<FinancialAdjustment> list = new RepositoryMemory().GetDetails(new GetFinancialAdjustment(1, 2,3));
+       // List<FinancialAdjustment> list = new RepositoryMemory().GetDetails(new GetFinancialAdjustment(39, 2,5));
         mLeadsAdapter = new ListViewAdapter(getActivity(), list);
         binding.listMovimientos.setAdapter(mLeadsAdapter);
        binding.add2.setOnClickListener(this::add);

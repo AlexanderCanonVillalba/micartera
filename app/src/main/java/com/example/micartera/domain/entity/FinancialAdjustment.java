@@ -2,16 +2,17 @@ package com.example.micartera.domain.entity;
 
 import com.example.micartera.R;
 
-import java.sql.Timestamp;
+import java.util.Date;
+
 
 public class FinancialAdjustment {
       float value ;
       int adjustmentType ;
       String category;
       String description;
-      Timestamp date;
+      Date date;
 
-      public FinancialAdjustment(float value,  int adjustmentType, String category, String description, Timestamp date){
+      public FinancialAdjustment(float value,  int adjustmentType, String category, String description, Date date){
             this.value =  value;
             this.category = category;
             this.adjustmentType = adjustmentType;
@@ -51,11 +52,11 @@ public class FinancialAdjustment {
             this.description = description;
       }
 
-      public Timestamp getDate() {
+      public Date getDate() {
             return date;
       }
 
-      public void setDate(Timestamp date) {
+      public void setDate(Date date) {
             this.date = date;
       }
 

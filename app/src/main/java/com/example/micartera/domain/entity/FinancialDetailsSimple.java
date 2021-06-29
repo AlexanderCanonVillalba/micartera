@@ -7,11 +7,30 @@ public class FinancialDetailsSimple extends FinancialDetails{
     private float totalExpense;
     private int month, year;
 
+    public FinancialDetailsSimple(){}
+
     public FinancialDetailsSimple(float totalIncome,float totalExpense,int month, int year){
         this.totalIncome = totalIncome;
         this.totalExpense = totalExpense;
         this.totalExpense = totalExpense;
         this.month = month;
+        this.year = year;
+    }
+
+
+    public void setTotalIncome(float totalIncome) {
+        this.totalIncome = totalIncome;
+    }
+
+    public void setTotalExpense(float totalExpense) {
+        this.totalExpense = totalExpense;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public void setYear(int year) {
         this.year = year;
     }
 

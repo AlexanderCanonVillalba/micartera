@@ -42,7 +42,7 @@ public class ListViewAdapter  extends ArrayAdapter<FinancialAdjustment> {
         TextView category = (TextView) convertView.findViewById(R.id.tv_category);
         TextView description = (TextView) convertView.findViewById(R.id.tv_description);
         TextView date = (TextView) convertView.findViewById(R.id.tv_date);
-        TextView value = (TextView) convertView.findViewById(R.id.tv_value);
+        TextView value = (TextView) convertView.findViewById(R.id.txt_value);
 
         // Lead actual.
         FinancialAdjustment lead = getItem(position);

@@ -184,7 +184,7 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <EditText
-            android:id="@+id/tv_value"
+            android:id="@+id/txt_value"
             android:layout_width="391dp"
             android:layout_height="67dp"
             android:layout_marginStart="4dp"
@@ -202,7 +202,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/tv_value2"
+            android:id="@+id/txt_description"
             android:layout_width="313dp"
             android:layout_height="58dp"
             android:layout_marginStart="82dp"
@@ -241,7 +241,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/tv_value4"
+            android:id="@+id/txt_category"
             android:layout_width="216dp"
             android:layout_height="59dp"
             android:layout_marginStart="179dp"
@@ -257,7 +257,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/tv_value5"
+            android:id="@+id/txt_adjusment_type"
             android:layout_width="216dp"
             android:layout_height="59dp"
             android:layout_marginStart="182dp"
@@ -276,7 +276,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/tv_registrar"
+            android:id="@+id/btn_registrar"
             android:layout_width="wrap_content"
             android:layout_height="41dp"
             android:layout_marginStart="293dp"

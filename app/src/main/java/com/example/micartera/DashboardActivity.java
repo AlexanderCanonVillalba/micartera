@@ -1,6 +1,9 @@
 package com.example.micartera;
 
 import android.app.Dialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -17,6 +20,7 @@ import com.example.micartera.domain.entity.FinancialDetailsSimple;
 import com.example.micartera.domain.port.Repository;
 import com.example.micartera.domain.query.GetFinancialAdjustment;
 import com.example.micartera.infrastructure.repository.RepositoryMemory;
+import com.example.micartera.ui.home.HomeFragment;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.RequiresApi;
@@ -37,7 +41,6 @@ public class DashboardActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityDashboardBinding binding;
-    private FragmentHomeBinding homeBinding;
     private TextView  textMonth , texTotalExpense , textTotalIncome;
     private LinearLayout tableroDetails;
     private View monthOne;
@@ -65,10 +68,16 @@ public class DashboardActivity extends AppCompatActivity {
         binding.appBarDashboard.toolbar.addView(totalAhorros);
         binding.appBarDashboard.toolbar.addView(typeMoney);
 
-
-
+       /* Bundle args =  new Bundle();
+        HomeFragment fragment = new HomeFragment();
+        args.putInt("accountID" , 45);
+        fragment.setArguments(args);*/
         setContentView(binding.getRoot());
 
+      /*  FragmentManager fm = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container_view_tag, fragment, ""); //donde fragmentContainer_id es el ID del FrameLayout donde tu Fragment está contenido.
+        fragmentTransaction.commit();*/
 
 
         setSupportActionBar(binding.appBarDashboard.toolbar);
@@ -79,8 +88,10 @@ public class DashboardActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });*/
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -110,4 +121,5 @@ public class DashboardActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
 }
