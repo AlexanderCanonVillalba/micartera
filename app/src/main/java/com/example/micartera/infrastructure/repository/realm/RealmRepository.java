@@ -24,17 +24,8 @@ import io.realm.RealmResults;
 
 public class RealmRepository implements Repository {
 
-    private final static int calculateIndex() {
-        Realm realm =  Realm.getDefaultInstance();
-        Number currentID =  realm.where(AccountRealm.class).max("id");
-        return 0;
-    }
-
     @Override
     public List<FinancialAdjustment> GetTotals(GetFinancialAdjustment query) {
-        String strDateFormat = "hh: mm: ss a dd-MMM-aaaa";
-        SimpleDateFormat objSDF = new SimpleDateFormat(strDateFormat);
-
         // OBTENER RANGO DE FECHA
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Calendar calender = Calendar.getInstance();
@@ -46,7 +37,6 @@ public class RealmRepository implements Repository {
         Date fechaFinal =  new GregorianCalendar(calender.get(Calendar.YEAR), calender.get(Calendar.MONTH) , calender.get(Calendar.DAY_OF_MONTH)).getTime();
 
 
-        System.out.println("validnado rango de fechas...." +  fechaInicial + "..........." + fechaFinal);
 
         Realm realm = Realm.getDefaultInstance();
         RealmResults<FinancialAdjustmentRealm> listFinancialAdjustmentRealm =  realm.where(FinancialAdjustmentRealm.class).equalTo("idAccount" , query.getAccountID())
@@ -75,7 +65,6 @@ public class RealmRepository implements Repository {
         calender.set(Calendar.MONTH , query.getPeriod());
         Date fechaFinal =  calender.getTime();
 
-        System.out.println("validando fecha...." + fechaFinal  +"......"+  fechaInicial );
 
         Realm realm = Realm.getDefaultInstance();
         RealmResults<FinancialAdjustmentRealm> listFinancialAdjustmentRealm =  realm.where(FinancialAdjustmentRealm.class).equalTo("idAccount" , query.getAccountID())
@@ -99,7 +88,6 @@ public class RealmRepository implements Repository {
         AccountRealm accountRealm =  realm.where(AccountRealm.class).equalTo("id" , account.getId()).findFirst();
 
                   FinancialAdjustment financialAdjustmentDomain =  account.getListFinancialAdjustment().get(0);
-        System.out.println("validando....tipo..." +financialAdjustmentDomain.getAdjustmentType());
                   FinancialAdjustmentRealm financialAdjustmentRealm =  realm.createObject(FinancialAdjustmentRealm.class);
                   financialAdjustmentRealm.setAdjustmentType(financialAdjustmentDomain.getAdjustmentType());
                   financialAdjustmentRealm.setCategory(financialAdjustmentDomain.getCategory());
@@ -107,7 +95,6 @@ public class RealmRepository implements Repository {
                   financialAdjustmentRealm.setDescription(financialAdjustmentDomain.getDescription());
                   financialAdjustmentRealm.setDate(financialAdjustmentDomain.getDate());
                   financialAdjustmentRealm.setIdAccount(account.getId());
-                   System.out.println("validnado rango de fechas...." +  financialAdjustmentRealm.getDate());
                   accountRealm.addFinancialAdjustmentRealm(financialAdjustmentRealm);
                   realm.insertOrUpdate(accountRealm);
                   realm.commitTransaction();

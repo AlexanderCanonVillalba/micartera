@@ -64,8 +64,34 @@ public class FinancialAdjustment {
             int idCategory = 0;
             switch (category){
                   case "Mercado":
-                        idCategory =  R.drawable.home;
-                  case "":
+                        idCategory =  R.drawable.tienda;
+                        break;
+                  case "Transporte":
+                        idCategory =  R.drawable.transporte_publico;
+                  case "Servicios" :
+                        idCategory =  R.drawable.factura;
+                        break;
+                  case "Ropa" :
+                        idCategory =  R.drawable.navegador_web;
+                        break;
+                  case "Salud" :
+                        idCategory =  R.drawable.reporte_de_salud;
+                        break;
+                  case "Hogar" :
+                        idCategory =  R.drawable.casa;
+                        break;
+                  case "Gimnasio" :
+                        idCategory =  R.drawable.gimnasio;
+                        break;
+                  case "Estudio" :
+                        idCategory =  R.drawable.estudio;
+                        break;
+                  case "Entretenimiento" :
+                        idCategory =  R.drawable.entretenimiento;
+                        break;
+                  case "Belleza" :
+                        idCategory =  R.drawable.salon_de_belleza;
+                        break;
             }
             return idCategory;
       }

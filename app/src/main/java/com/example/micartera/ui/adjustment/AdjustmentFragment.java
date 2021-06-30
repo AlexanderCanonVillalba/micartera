@@ -4,6 +4,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -45,13 +46,55 @@ public class AdjustmentFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = AdjustmentFragmentBinding.inflate(inflater, container, false);
+        int accountID = this.getArguments().getInt("accountID");
+        String category = this.getArguments().getString("category");
+        Context context = this.getContext();
+
+        binding.txtCategory.setText(category);
         binding.date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePickerDialog();
             }
         });
-        binding.btnRegistrar.setOnClickListener(this::Save);
+        binding.btnRegistrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Date date =  new Date();
+                try {
+                    date=  new SimpleDateFormat("dd/MM/yyyy").parse(binding.date.getText().toString());
+                }catch (Exception e){
+                    throw  new RuntimeException(e.getMessage());
+                }
+
+                int adjustmentType =  0;
+
+
+                if (binding.txtAdjusmentType.getText().toString().equals("Gasto")) {
+                    adjustmentType =  1 ;
+                }else {
+                    adjustmentType = 2;
+                }
+
+                FinancialAdjustment financialAdjustment =  new FinancialAdjustment(
+                        new Float(binding.txtValue.getText().toString()),
+                        adjustmentType,
+                        binding.txtCategory.getText().toString(),
+                        binding.txtDescription.getText().toString(),
+                        date);
+
+                Account account =  new Account(1, 1, accountID, "Cuenta personal");
+                account.addFinancialAdjustment(financialAdjustment);
+
+                Repository repository =  new RealmRepository();
+                SaveFinancialAdjustment useCase =  new SaveFinancialAdjustment(repository);
+                useCase.Execute(account);
+
+                Intent dashboard =  new Intent(context, DashboardActivity.class);
+                dashboard.putExtra("accountID", accountID);
+                startActivity(dashboard);
+            }
+        });
         return binding.getRoot();
     }
 
@@ -67,40 +110,7 @@ public class AdjustmentFragment extends Fragment {
     }
 
     private void Save(View view) {
-        Date date =  new Date();
-        try {
-           date=  new SimpleDateFormat("dd/MM/yyyy").parse(binding.date.getText().toString());
-        }catch (Exception e){
-            throw  new RuntimeException(e.getMessage());
-        }
 
-        int adjustmentType =  0;
-
-
-        if (binding.txtAdjusmentType.getText().toString().equals("Gasto")) {
-            System.out.println("validando....tipo..." + binding.txtAdjusmentType.getText().toString());
-            adjustmentType =  1 ;
-        }else {
-            System.out.println("valido  else..");
-            adjustmentType = 2;
-        }
-
-        FinancialAdjustment financialAdjustment =  new FinancialAdjustment(
-                new Float(binding.txtValue.getText().toString()),
-                  adjustmentType,
-                    binding.txtCategory.getText().toString(),
-                        binding.txtDescription.getText().toString(),
-                       date);
-
-        Account account =  new Account(1, 1, 45, "Cuenta personal");
-        account.addFinancialAdjustment(financialAdjustment);
-
-        Repository repository =  new RealmRepository();
-        SaveFinancialAdjustment useCase =  new SaveFinancialAdjustment(repository);
-        useCase.Execute(account);
-
-        Intent dashboard =  new Intent(this.getContext(), DashboardActivity.class);
-        startActivity(dashboard);
     }
 
     @Override

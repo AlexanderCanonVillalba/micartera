@@ -48,7 +48,7 @@ public class ListViewAdapter  extends ArrayAdapter<FinancialAdjustment> {
         FinancialAdjustment lead = getItem(position);
 
         // Setup.
-        Glide.with(this.context).load(R.drawable.home).into(avatar);
+        Glide.with(this.context).load(lead.getIdCategory()).into(avatar);
         category.setText(lead.getCategory());
         description.setText(lead.getDescription());
         date.setText(lead.getDate().toString());

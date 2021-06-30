@@ -68,26 +68,9 @@ public class DashboardActivity extends AppCompatActivity {
         binding.appBarDashboard.toolbar.addView(totalAhorros);
         binding.appBarDashboard.toolbar.addView(typeMoney);
 
-       /* Bundle args =  new Bundle();
-        HomeFragment fragment = new HomeFragment();
-        args.putInt("accountID" , 45);
-        fragment.setArguments(args);*/
         setContentView(binding.getRoot());
 
-      /*  FragmentManager fm = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container_view_tag, fragment, ""); //donde fragmentContainer_id es el ID del FrameLayout donde tu Fragment está contenido.
-        fragmentTransaction.commit();*/
-
-
         setSupportActionBar(binding.appBarDashboard.toolbar);
-     /*   binding.appBarDashboard.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
 
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
@@ -98,14 +81,12 @@ public class DashboardActivity extends AppCompatActivity {
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
                 .setDrawerLayout(drawer)
                 .build();
+        Bundle args =  new Bundle();
+        args.putInt("accountID" , getIntent().getExtras().getInt("accountID"));
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_dashboard);
+        navController.navigate(R.id.nav_home, args);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-    }
-
-    public void Details(View view) {
-        Intent details =  new Intent(this , MainActivity.class);
-        startActivity(details);
     }
 
     @Override

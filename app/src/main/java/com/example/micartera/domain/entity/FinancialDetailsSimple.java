@@ -46,4 +46,8 @@ public class FinancialDetailsSimple extends FinancialDetails{
         return new DateService().GetMonth(this.month);
     }
 
+    public int GetMonthID(){
+        return this.month;
+    }
+
 }

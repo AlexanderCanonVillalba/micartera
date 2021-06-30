@@ -1,5 +1,6 @@
 package com.example.micartera.ui.home;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -37,8 +38,10 @@ import com.example.micartera.domain.port.Repository;
 import com.example.micartera.domain.query.GetFinancialAdjustment;
 import com.example.micartera.infrastructure.repository.RepositoryMemory;
 import com.example.micartera.infrastructure.repository.realm.RealmRepository;
+import com.example.micartera.ui.details.DetailsFragment;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
@@ -46,23 +49,34 @@ public class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
 
+
+    public static HomeFragment newInstance() {
+        return new HomeFragment();
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
-        Bundle datosRecuperados =  getArguments();
-
-
+       int accountID =  this.getArguments().getInt("accountID");
+        Context context = this.getContext();
         binding = FragmentHomeBinding.inflate(inflater, container, false);
-        binding.add.setOnClickListener(this::add);
+        binding.add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent dashboard =  new Intent(context, MainActivity3.class);
+                dashboard.putExtra("accountID" , accountID);
+                startActivity(dashboard);
+            }
+        });
         View root = binding.getRoot();
 
 
         Repository repository  = new RealmRepository();
         ReadingTotals useCase = new ReadingTotals(repository) ;
-        GetFinancialAdjustment query =  new GetFinancialAdjustment(45 , 1234 , 0);
+        GetFinancialAdjustment query =  new GetFinancialAdjustment(accountID, 1234 , 0);
         List<FinancialDetailsSimple> listFinancialDetailsSimple = useCase.Execute(query);
 
 
@@ -81,10 +95,19 @@ public class HomeFragment extends Fragment {
             String uri = "@drawable/linear";
             int imageResource = getResources().getIdentifier(uri, null, getActivity().getPackageName());
             Drawable imagen = ContextCompat.getDrawable(this.getContext(), imageResource);
-            view.setBackground(imagen);
-            view.setOnClickListener(this::Cambiar);
 
-            System.out.println("validando mes view...." + financialDetailsSimple.GetMonth() );
+
+            view.setBackground(imagen);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent add =  new Intent(context, MainActivity2.class);
+                    add.putExtra("accountID" , accountID);
+                    add.putExtra("periodo" ,financialDetailsSimple.GetMonthID() );
+                    startActivity(add);
+                }
+            });
+
             Typeface boldTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
             final TextView textView  =  new TextView(this.getContext());
             textView.setText(financialDetailsSimple.GetMonth());
@@ -115,27 +138,11 @@ public class HomeFragment extends Fragment {
             binding.getRoot().addView(view);
             margen += 400;
         }
-       /* final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });*/
         return root;
     }
 
-
-    public void Cambiar(View view) {
-        Intent dashboard =  new Intent(this.getContext(), MainActivity2.class);
-        startActivity(dashboard);
-
-    }
-
-
     public void add(View view){
-        Intent dashboard =  new Intent(this.getContext(), MainActivity3.class);
-        startActivity(dashboard);
+
     }
 
     @Override

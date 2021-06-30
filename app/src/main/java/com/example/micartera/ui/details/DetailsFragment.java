@@ -2,6 +2,7 @@ package com.example.micartera.ui.details;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -45,32 +46,38 @@ public class DetailsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-
+        int accountID = this.getArguments().getInt("accountID");
+        int periodo = this.getArguments().getInt("periodo");
         binding = DetailsFragmentBinding.inflate(inflater, container, false);
         binding.previus.setOnClickListener(this::previus);
-
+        Context context = this.getContext();
         Repository repository = new RealmRepository();
         ReadingDetails  useCase = new ReadingDetails(repository);
-        GetFinancialAdjustment query =  new GetFinancialAdjustment(45 , 1234 , Calendar.JUNE);
+        GetFinancialAdjustment query =  new GetFinancialAdjustment(accountID, 1234 , periodo);
         List<FinancialAdjustment> list =  useCase.Execute(query);
 
         ArrayAdapter<FinancialAdjustment> mLeadsAdapter;
        // List<FinancialAdjustment> list = new RepositoryMemory().GetDetails(new GetFinancialAdjustment(39, 2,5));
         mLeadsAdapter = new ListViewAdapter(getActivity(), list);
         binding.listMovimientos.setAdapter(mLeadsAdapter);
-       binding.add2.setOnClickListener(this::add);
+       binding.add2.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Intent dashboard =  new Intent(context, MainActivity3.class);
+               dashboard.putExtra("accountID" , accountID);
+               startActivity(dashboard);
+           }
+       });
         return binding.getRoot();
 
     }
 
     public void previus(View view){
-        Intent dashboard =  new Intent(this.getContext(), DashboardActivity.class);
-        startActivity(dashboard);
+       getActivity().onBackPressed();
     }
 
     public void add(View view){
-        Intent dashboard =  new Intent(this.getContext(), MainActivity3.class);
-        startActivity(dashboard);
+
     }
 
     @Override

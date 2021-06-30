@@ -12,6 +12,11 @@ import com.example.micartera.databinding.ActivityMainBinding;
 import com.example.micartera.domain.entity.Account;
 import com.example.micartera.domain.port.Repository;
 import com.example.micartera.infrastructure.repository.realm.RealmRepository;
+import com.example.micartera.infrastructure.repository.realm.model.AccountRealm;
+import com.example.micartera.infrastructure.repository.realm.model.FinancialAdjustmentRealm;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
@@ -28,10 +33,19 @@ public class MainActivity extends AppCompatActivity {
     public void Enter(View view) {
         Repository repository =  new RealmRepository();
         SaveAccount useCase = new SaveAccount(repository);
-        Account account = new Account(1, 1, 45 , "Cuenta personal");
-        useCase.Execute(account);
+        Realm realm = Realm.getDefaultInstance();
+     /* realm.beginTransaction();
+        AccountRealm list =  realm.where(AccountRealm.class).equalTo("id" , 1).findFirst();
+        list.deleteFromRealm();
+        realm.commitTransaction();*/
+        AccountRealm accountRealm =  realm.where(AccountRealm.class).equalTo("nameAccount" , "Cuenta personal").findFirst();
+        if (accountRealm == null) {
+            Account account = new Account(1, 1, 1, "Cuenta personal");
+            useCase.Execute(account);
+        }
+
         Intent dashboard =  new Intent(this, DashboardActivity.class);
-        dashboard.putExtra("accountID" , 14 );
+        dashboard.putExtra("accountID" , 1 );
         startActivity(dashboard);
     }
 }

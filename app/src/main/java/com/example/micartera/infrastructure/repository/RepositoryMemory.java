@@ -22,15 +22,6 @@ public class RepositoryMemory implements Repository {
     @Override
     public List<FinancialAdjustment> GetTotals(GetFinancialAdjustment query) {
         return null;
-        /*
-        List<FinancialDetailsSimple> listFinancialDetailsSimple =  new ArrayList<>();
-        Account account =  new Account(1 , 1234, 13);
-        for (int i = 0; i < 3; i++){
-            FinancialDetailsSimple financialDetailsSimple =  new FinancialDetailsSimple(
-                    3000 , 2000 , 4+i , 2021);
-           listFinancialDetailsSimple.add(financialDetailsSimple);
-        }
-        return listFinancialDetailsSimple;*/
     }
 
     @Override
